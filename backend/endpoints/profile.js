@@ -136,8 +136,8 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-	const { email, password } = req.body;
-
+	let { email, password } = req.body;
+	email = email.toLowerCase();
 	try {
 		//check if user exists and get their hashed password etc
 		const query = `
