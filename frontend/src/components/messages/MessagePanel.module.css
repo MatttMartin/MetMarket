@@ -1,0 +1,55 @@
+.sidebar {
+	background-color: #f8f9fa;
+}
+
+.messagingPanel {
+	border: 1px solid #ccc;
+	padding: 20px;
+	margin-top: 0px;
+	height: 500px;
+	overflow-y: auto;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border-radius: 4px;
+}
+
+.messageContainer {
+	flex: 1;
+	overflow-y: auto;
+	flex-direction: column-reverse;
+	margin-bottom: 20px;
+}
+
+.inputGroup {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: calc(100% - 20px);
+	margin: 10px;
+}
+
+.active {
+	background-color: rgba(0, 76, 155, 1);
+	color: white;
+}
+
+.latest-message {
+	font-size: 14px;
+	color: #888;
+}
+
+.sidebar {
+	background-color: white;
+}
+
+.listGroupContainer {
+	height: 500px;
+	overflow-y: auto;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

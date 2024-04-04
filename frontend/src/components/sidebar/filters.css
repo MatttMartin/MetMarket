@@ -1,0 +1,64 @@
+.collapsible-container {
+    border-top: 2px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+.collapsible-button-filter {
+  background-color: white !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.collapsible-button-filter:hover {
+  background-color: #E7ECF3 !important;
+}
+  
+.collapsible-content {
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding-bottom: 10px;
+}
+  
+.collapsible-content.collapsed {
+  max-height: 0;
+}
+  
+.collapsible-content.expanded {
+  max-height: 1000px; 
+}
+
+.filters-heading {
+  padding-top:20px;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  white-space: normal !important;
+  margin-bottom: 0 !important;
+  
+}
+
+.filters-container {
+  margin-left:10px;
+
+}
+
+.filter-submit {
+  background-color: white !important;
+  border: none;
+  float: right;
+  font-size: clamp(8px, 2.5vw, 15px) !important;
+}
+
+.filter-submit:hover {
+  text-decoration: underline;
+}
+
+
+.form-check {
+ margin-left: 5px; 
+}

@@ -1,0 +1,19 @@
+@media (max-width: 992px) {
+    .sidebar {
+      display: none !important; /* Hide sidebar */
+    }
+
+    .ad-container {
+        flex-basis: 100% !important; /* Make ad-container take full width of page */
+    }
+
+  }
+
+@media (min-width: 993px) {
+    .sidebar {
+      display: block !important; /* Hide sidebar */
+    }
+  }
+
+
+

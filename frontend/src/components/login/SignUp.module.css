@@ -1,0 +1,15 @@
+.SignUpContainer {
+	max-width: 600px;
+	margin: auto;
+	padding: 2rem;
+	background-color: #f8f9fa; /* Bootstrap light background color */
+	border: 1px solid #dee2e6; /* Bootstrap light border color */
+	border-radius: 0.25rem;
+}
+
+.SignUpForm h2 {
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+/* If you want to add custom styles for inputs or buttons, you can add them here */

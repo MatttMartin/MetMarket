@@ -1,0 +1,99 @@
+@media (max-width: 992px) {
+    .side-bar {
+      display: none !important; /* Hide sidebar */
+    }
+  }
+
+.side-bar {
+    margin: 15px;
+    border-right: 2px solid #E3E3E3;
+    width: 100% !important;
+    display: block;
+    position: sticky !important;
+    top: 160px;
+}
+
+.sidebar-dropdown {
+    background-color: white !important;
+    color: black !important;
+    border-style: none !important;
+    bottom: auto !important;
+}
+
+.sidebar-categories.dropdown-menu.show {
+    border: none;
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: 600 !important;
+}
+
+.category {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    white-space: normal !important;
+    padding-left: 0 !important;
+}
+
+.btn.align-items-center.category {
+    font-family: Poppins, sans-serif;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    white-space: normal !important;
+    padding: 6px 12px 6px 0px !important;
+}
+
+.btn.align-items-center.subcategory {
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    white-space: normal !important;
+    padding: 6px !important;
+}
+
+.categories-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+.categories-container-title {
+    font-size: 20px !important;
+    font-weight: 600;
+}
+
+.category:hover {
+    background-color: #E7ECF3 !important;
+}
+
+.container-title-category {
+    border-top: 2px solid #E3E3E3;
+    padding: 20px;
+    font-weight: 600;
+    margin-left: 5px;
+    padding-left: 20px;
+}
+
+.collapsible-button {
+    font-family: Poppins, sans-serif;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    white-space: normal !important;
+    padding: 6px 12px 6px 0 !important;
+    background-color: white !important;
+    border: none;
+}
+
+.collapsible-button:hover{
+    background-color: #E7ECF3 !important;
+}
+
+.collapsible-content {
+    border: none !important;
+    padding-bottom: 0 !important;
+}
+
+.active-link {
+    font-weight: 600;
+    color: #004C9B !important; 
+  }
+

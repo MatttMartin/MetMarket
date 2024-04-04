@@ -1,0 +1,141 @@
+@media (max-width: 992px) {
+  .navbar-collapse {
+    flex-direction: column !important;
+    align-items: stretch; 
+  }
+}
+
+.App {
+  text-align: center;
+  font-family: Poppins, sans-serif !important;
+}
+
+.navbar{
+  background-color: #004C9B;
+  position: sticky !important;
+  top: 0 !important;
+  justify-content: center !important; 
+  z-index: 2;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar-brand {
+  font-family: Poppins !important;
+  color: #FAFAFA !important;
+  padding: 20px;
+  font-size: 30px !important;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-collapse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-toggler {
+  border-style: none !important;
+  color: white;
+}
+
+.navbar-toggler-icon {
+  color: white !important;
+}
+
+.nav-item {
+  flex-direction: row !important;
+  color: #FAFAFA !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.nav-item a{
+  font-family: Poppins !important;
+  flex-direction: row;
+  color: #FAFAFA !important;
+  font-size: 20px !important;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;;
+}
+
+.nav-link-group {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-item:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 6px;
+}
+
+.search-form {
+  font-family: Poppins !important;
+  margin-right: 20px !important;
+}
+
+.search-bar-container {
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  height: 50px;
+  align-items: center;
+  width: 100%;
+}
+
+.search-bar-container input {
+  border-style: none !important;
+  max-width: 500px;
+}
+
+.search-icon {
+  border-style: none !important;
+  width: 20% !important;
+  transform: scale(0.5) !important;
+}
+
+.search-icon:hover {
+  cursor: pointer !important;
+}
+
+.categories-title {
+  background-color: #004C9B !important;
+  border: none !important;
+  font-size: 20px !important;
+  font-family: Poppins, sans-serif !important;
+}
+
+.navbar-categories.dropdown-menu.show {
+  margin-left: 0px !important;
+}
+
+.my-account-dropdown {
+  border-style: none !important;
+}
+
+.my-account-dropdown:hover {
+  background-color: #004C9B !important;
+}
+
+.my-account-dropdown-menu {
+  background-color: #004C9B !important;
+  border: none !important;
+}
+
+.my-account-mylistings:hover {
+  background-color: #004C9B !important;
+}
+
+.my-account-settings:hover {
+  background-color: #004C9B !important;
+}
