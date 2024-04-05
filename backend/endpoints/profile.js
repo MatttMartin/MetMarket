@@ -117,7 +117,7 @@ router.post("/", async (req, res) => {
 			//commit the transaction
 			await client.query("COMMIT");
 
-			const token = jwt.sign({ id: userId }, "jwtsecret", {
+			const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
 				expiresIn: "24h",
 			});
 
@@ -162,7 +162,7 @@ router.post("/login", async (req, res) => {
 		}
 
 		const id = user.id;
-		const token = jwt.sign({ id: id }, "jwtsecret", {
+		const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
 			expiresIn: "24h",
 		});
 
