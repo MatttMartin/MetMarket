@@ -1,6 +1,6 @@
 @media (max-width: 992px) {
     .side-bar {
-      display: none !important; /* Hide sidebar */
+      display: none !important; 
     }
   }
 
