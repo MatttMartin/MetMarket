@@ -67,7 +67,7 @@ const MessagePanel = () => {
 	}, [jwtDecode(sessionStorage.getItem("token")).id]);
 
 	useEffect(() => {
-		console.log("backend url: ", process.env.REACT_APP_APIURL)
+		console.log("backend url: ", process.env.REACT_APP_BASEURL)
 		const fetchUserData = async () => {
 			try {
 				const response = await axios.get(process.env.REACT_APP_APIURL + "/profile/details", {
