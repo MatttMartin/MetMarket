@@ -28,4 +28,20 @@ router.get("/reported-users", async (req, res) => {
   }
 });
 
+router.post("/reportAd", async (req, res) => {
+	try {
+		const product_id = req.body.product_id;
+
+		const result = await pool.query(
+      `INSERT INTO reported_ads (ad_id) VALUES ($1);`,
+			[product_id]
+		);
+
+		res.status(201).json({success: true});
+	} catch (error) {
+		console.error(error);
+		res.status(500).send("Server Error");
+	}
+});
+
 module.exports = router;

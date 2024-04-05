@@ -52,7 +52,6 @@ async function getDetails (req) {
 
 router.get('/adDetails/:id', async (req, res) => {
 	try {
-		console.log("here in line 55");
 
 		const result = await getDetails(req);
     res.json(result);
@@ -65,7 +64,7 @@ router.get('/adDetails/:id', async (req, res) => {
 
 router.get('/editDetails/:id', jwtMiddleware, async (req, res) => {
 	try {
-		console.log("here in line 67");
+
 		const userId = req.query.userId;
 		const result = await getDetails(req);
 
