@@ -70,7 +70,7 @@ const MessagePanel = () => {
 		console.log("backend url: ", process.env.REACT_APP_BASEURL)
 		const fetchUserData = async () => {
 			try {
-				const response = await axios.get(process.env.REACT_APP_APIURL + "/profile/details", {
+				const response = await axios.get(process.env.REACT_APP_BASEURL + "/profile/details", {
 					headers: {
 						authorization: sessionStorage.getItem("token"),
 					},
