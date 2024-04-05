@@ -33,7 +33,7 @@ const MessagePanel = () => {
 	const chatContainerRef = useChatScroll(messages);
 
 	useEffect(() => {
-		const newSocket = io(process.env.REACT_APP_APIURL, {
+		const newSocket = io(process.env.REACT_APP_BASEURL, {
 			query: {
 				userId: jwtDecode(sessionStorage.getItem("token")).id,
 			},
@@ -67,10 +67,10 @@ const MessagePanel = () => {
 	}, [jwtDecode(sessionStorage.getItem("token")).id]);
 
 	useEffect(() => {
-		console.log("backend url: ", process.env.REACT_APP_BASEURL)
+		console.log("backend url: ", process.env.REACT_APP_APIURL)
 		const fetchUserData = async () => {
 			try {
-				const response = await axios.get(process.env.REACT_APP_BASEURL + "/profile/details", {
+				const response = await axios.get(process.env.REACT_APP_APIURL + "/profile/details", {
 					headers: {
 						authorization: sessionStorage.getItem("token"),
 					},
