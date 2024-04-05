@@ -74,8 +74,8 @@ router.put("/newPassword", async (req, res) => {
 
 //signup end point
 router.post("/", async (req, res) => {
-	const { firstName, lastName, email, phoneNumber, password } = req.body;
-
+	let { firstName, lastName, email, phoneNumber, password } = req.body;
+	email = email.toLowerCase();
 	//checking if user already exists
 	try {
 		const checkUserResult = await pool.query("SELECT 1 FROM users WHERE email = $1 or phone_number=$2", [email, phoneNumber]);
