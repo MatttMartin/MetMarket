@@ -44,10 +44,8 @@ app.use('/api/locations', locationRoutes);
 
 // Create a Socket.io server with the express application
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-  },
+const io = require("socket.io")(httpServer, {
+  origins: ["https://metmarket.adaptable.app", "https://localhost:3000"]
 });
 
 // wait for new connection
