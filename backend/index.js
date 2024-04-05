@@ -1,7 +1,6 @@
 const express = require("express");
 const { Application, Request, Response } = require("express");
 const bodyParser = require("body-parser");
-const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 const dotenv = require('dotenv');
@@ -44,12 +43,19 @@ app.use('/api/locations', locationRoutes);
 app.use('/api/report', reportRoutes);
 
 // Create a Socket.io server with the express application
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "https://metmarket.adaptable.app",
-  },
+const server = require('http').createServer(app);
+const io = require("socket.io")(server, {
+  origins: ["https://metmarket.adaptable.app"],
+
+  handlePreflightRequest: (req, res) => {
+    res.writeHead(200, {
+      "Access-Control-Allow-Origin": "https://metmarket.adaptable.app",
+      "Access-Control-Allow-Methods": "GET,POST",
+    });
+    res.end();
+  }
 });
+
 
 // wait for new connection
 io.on("connection", (socket) => {
