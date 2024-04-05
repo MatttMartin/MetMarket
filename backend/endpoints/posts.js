@@ -172,7 +172,6 @@ router.post("/postNewAd", jwtMiddleware, async (req, res) => {
 			[user_id, location_id, title, description, price, is_available, category_id, subcategory_id, meet_on_campus]
 		);
 		
-		console.log(result);
 		if (result.rows.length > 0 && result.rows[0].product_id) {
 			const newPostId = result.rows[0].product_id; // Accessing the newly generated ID
 			res.status(201).json({ id: newPostId }); // Returning the ID in the response

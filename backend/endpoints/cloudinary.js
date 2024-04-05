@@ -27,7 +27,6 @@ const uploadImage = (image) => {
     cloudinary.uploader.upload(image, opts, (error, result) => {
       if (result && result.secure_url) {
 
-        console.log(`coming from line 30: ${result.secure_url}`);
         return resolve(result.secure_url);
       }
       console.log(error.message);
@@ -35,21 +34,7 @@ const uploadImage = (image) => {
     });
   });
 };
-/*
-module.exports = (image) => {
-  //imgage = > base64
-  return new Promise((resolve, reject) => {
-    cloudinary.uploader.upload(image, opts, (error, result) => {
-      if (result && result.secure_url) {
-        console.log(result.secure_url);
-        return resolve(result.secure_url);
-      }
-      console.log(error.message);
-      return reject({ message: error.message });
-    });
-  });
-};
-*/
+
 const uploadMultipleImages = (images) => {
   return new Promise((resolve, reject) => {
     const uploads = images.map((base) => uploadImage(base));
@@ -62,9 +47,7 @@ const uploadMultipleImages = (images) => {
 
 async function uploadImagesToDB(product_id, image_links) {
   try {
-    console.log("got to here");
     
-
     const images = Array.isArray(image_links) ? image_links.map((link) => `(${product_id}, '${link}')`).join(', ') : `(${product_id}, '${image_links}')`;
     const query = `INSERT INTO images (product_id, image_link) VALUES ${images};`;
 
@@ -81,16 +64,14 @@ async function uploadImagesToDB(product_id, image_links) {
 
 async function updateImagesInDB(product_id, existing_images, new_images) {
   try {
-    console.log("got to here");
-
     const imagesInDBQuery = `SELECT ARRAY_AGG(image_link) AS image_links FROM images WHERE product_id = ${product_id};`;
     const existing_images_in_DB = await pool.query(imagesInDBQuery);
-    console.log(existing_images_in_DB);
+
     const deletedImages = existing_images_in_DB.rows[0].image_links.filter(item => existing_images.indexOf(item) === -1);
 
     if (deletedImages.length > 0) {
       const deleteQuery = `DELETE FROM images WHERE product_id = ${product_id} AND image_link IN (${deletedImages.map((image) => `'${image}'`).join(', ')});`;
-      console.log(existing_images_in_DB);
+
       const deletionResult = await pool.query(deleteQuery);
       console.log("Images deleted successfully:", deletionResult.rows);
     }
@@ -110,20 +91,13 @@ async function updateImagesInDB(product_id, existing_images, new_images) {
 }
 
 router.use(cors());
-/*
-router.post("/uploadImage", (req, res) => {
-  
-  uploadImage(req.body.image)
-    .then((url) => {res.status(201).json({url: url}); console.log(`this is the url: ${url}`)})
-    .catch((err) => res.status(500).send(err));
-});
-*/
+
 router.post('/uploadImage', async (req, res) => {
   try {
       const fileStr = req.body.image;
       const product_id = req.body.product_id;
       const uploadResponse = await cloudinary.uploader.upload(fileStr);
-      console.log(uploadResponse.secure_url);
+
       uploadImagesToDB(product_id, uploadResponse.secure_url);
       
       res.status(201).json({url: uploadResponse.secure_url});
@@ -139,7 +113,6 @@ router.post("/uploadMultipleImages", (req, res) => {
     const images = req.body.images;
     uploadMultipleImages(images)
     .then((urls) => {
-      //console.log(urls);
       uploadImagesToDB(product_id, urls);
       res.status(201).json({status: "Success!"});
     })
@@ -153,7 +126,7 @@ router.post("/updateImages", (req, res) => {
 
   uploadMultipleImages(newImages)
   .then((urls) => {
-    console.log("here in cloudinary.js line 150");
+
     updateImagesInDB(product_id, existingImages, urls);
     res.status(201).json({status: "Success!"});
   })

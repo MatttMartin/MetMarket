@@ -164,7 +164,7 @@ function AdForm(props) {
         if (!response.ok) {
           throw new Error('Failed to update ad');
         }
-        console.log("in response frontend");
+
         return response.json(); 
       })
       .then(data => {
@@ -231,10 +231,8 @@ function AdForm(props) {
     
     const uploadImage = async (product_id) => {
       const files = rawImageFiles;
-      console.log(files.length);
     
       if (props.isEditForm) {
-        console.log("hereeeeee");
         const base64s = await Promise.all(files.map(convertBase64));
         await updateImages(base64s);
       } else {

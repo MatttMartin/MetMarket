@@ -1,7 +1,7 @@
 import CarouselPanel from "./carouselPanel";
 
 function Carousel(props) {
-  console.log(props);
+
   return (
     <div id="carouselIndicators" className="carousel carousel-dark slide">
   <div className="carousel-indicators">

@@ -56,7 +56,7 @@ function ManageUsers() {
 
   const handleFormChange = (event) => {
     const { id, value, type, checked } = event.target;
-    console.log(value);
+
     let updatedFormData = {};
 
   
@@ -85,8 +85,6 @@ function ManageUsers() {
     }
 
     try {
-      console.log(editFormData);
-
       if (editFormData.currentPassword && editFormData.newPassword) {
 
         await axios.put(process.env.REACT_APP_APIURL + "/profile/newPassword", {

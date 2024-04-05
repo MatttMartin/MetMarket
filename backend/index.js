@@ -57,11 +57,8 @@ io.on("connection", (socket) => {
   //join a group based on the userid
   socket.join(userId)
 
-  console.log(userId)
-
   //when a user sends a message, emit it to the other user in the conversation
   socket.on("message", (msg) => {
-    console.log(msg)
     io.to(msg.receiver_id).emit("newMessage", msg)
   })
 

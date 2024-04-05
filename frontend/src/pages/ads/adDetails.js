@@ -29,7 +29,6 @@ function AdDetails() {
         else {
           setAdData(response.data.rows[0]);
           //setInitialUserData(response.data[0])
-          console.log(response.data.rows[0]);
           setLoading(false);
         }
 			} catch (error) {
@@ -72,7 +71,6 @@ function AdDetails() {
         return response.json(); 
       })
       .then(data => {
-        //console.log("Ad reported successfully.", data.id);
         alert("Ad reported successfully!")
       })
       .catch(error => console.error("Error reporting ad:", error));
