@@ -32,7 +32,7 @@ const categoryRoutes = require('./endpoints/categories');
 const adminRoutes = require('./endpoints/admin');
 const cloudinaryRoutes = require('./endpoints/cloudinary');
 const locationRoutes = require('./endpoints/location');
-
+const reportRoutes = require('./endpoints/reports');
 
 app.use('/api/profile', profileRoutes); 
 app.use('/api/messages', messagesRoutes); 
@@ -41,6 +41,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
 app.use('/api/locations', locationRoutes);
+app.use('/api/report', reportRoutes);
 
 // Create a Socket.io server with the express application
 const server = http.createServer(app);

@@ -24,16 +24,6 @@ function ItemBlock({ item, isMyListings }) {
 
     return (
         <div className='item-block-container' style={{ width: '300px', fontFamily: 'Poppins', position: 'relative', display: 'flex', flexDirection: 'column' }}>
-            { item.reason ? (
-                <>
-                <div className='reason'>
-                    <span style={{color: '#004C9B', fontWeight: 'bold'}}>Reported for:</span> {item.reason}
-                </div>
-                </>
-            ) : (
-                <>
-                </>
-            )}
             <div className='imageHolder' style={{ width: '300px', height: '300px', maxWidth: '100%', maxHeight: '100%', backgroundImage: `url(${imageExample})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: '#F5F5F5', cursor: 'pointer', position: 'relative' }}>
                 <img src={Array.isArray(item.image_links) ? item.image_links[0] : imageExample} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover'}} onClick={handleClick}/>
                 {isMyListings || isReportedAds ? (
