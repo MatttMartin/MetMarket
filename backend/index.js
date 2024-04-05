@@ -45,8 +45,10 @@ app.use('/api/report', reportRoutes);
 
 // Create a Socket.io server with the express application
 const server = http.createServer(app);
-const io = require("socket.io")(server, {
-  origins: ["https://metmarket.adaptable.app", "https://localhost:3000"]
+const io = new Server(server, {
+  cors: {
+    origin: "https://metmarket.adaptable.app",
+  },
 });
 
 // wait for new connection
