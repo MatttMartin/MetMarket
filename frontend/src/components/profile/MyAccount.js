@@ -23,6 +23,7 @@ const MyAccount = (props) => {
 
 	const navigate = useNavigate();
 
+	//getting user details from the db
 	useEffect(() => {
 		const fetchUserData = async () => {
 			try {
@@ -49,6 +50,7 @@ const MyAccount = (props) => {
 		fetchUserData();
 	}, []);
 
+	//check if details are correct format and then send to db
 	const handleDetailsSubmit = async (event) => {
 		event.preventDefault();
 
@@ -122,6 +124,7 @@ const MyAccount = (props) => {
 		alert("Successfully updated password");
 	};
 
+	//handles uploading profile picture image
 	async function fileUpload(event) {
 		if (!event.target.files || !window.FileReader) return;
 
@@ -134,6 +137,7 @@ const MyAccount = (props) => {
 		setIsImageSelected(true);
 	}
 
+	//sets display to uploaded picture
 	useEffect(() => {
 		if (imageFiles.length > 0) {
 			const file = imageFiles[0];
@@ -173,6 +177,7 @@ const MyAccount = (props) => {
 		});
 	};
 
+	//when user saves new profile pic upload, upload it to db
 	const postImage = async (base64) => {
 		try {
 			await axios.put(
@@ -272,9 +277,7 @@ const MyAccount = (props) => {
 							</form>
 						</div>
 						<div className="col-md-4 mb-3">
-							{/* First Div */}
 							<form onSubmit={handlePasswordSubmit} className="bg-light p-3 border rounded">
-								{/* Form fields */}
 								<h2>Change Password</h2>
 								<div className="mb-3">
 									<label htmlFor="password" className="form-label">

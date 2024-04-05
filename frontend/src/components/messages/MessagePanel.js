@@ -44,19 +44,7 @@ const MessagePanel = () => {
 		});
 
 		newSocket.on("newMessage", (msg) => {
-			console.log(msg);
 			setMessages((prevMessages) => [...prevMessages, msg]);
-		});
-
-		newSocket.on("connect_error", (err) => {
-			// the reason of the error, for example "xhr poll error"
-			console.log(err.message);
-		
-			// some additional description, for example the status code of the initial HTTP response
-			console.log(err.description);
-		
-			// some additional context, for example the XMLHttpRequest object
-			console.log(err.context);
 		});
 
 		setSocket(newSocket);
@@ -66,8 +54,8 @@ const MessagePanel = () => {
 		};
 	}, [jwtDecode(sessionStorage.getItem("token")).id]);
 
+	//useEffect to get users data on page load
 	useEffect(() => {
-		console.log("backend url: ", process.env.REACT_APP_APIURL)
 		const fetchUserData = async () => {
 			try {
 				const response = await axios.get(process.env.REACT_APP_APIURL + "/profile/details", {
@@ -87,6 +75,7 @@ const MessagePanel = () => {
 		fetchUserData();
 	}, []);
 
+	//useEffect to get messages and conversations
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -111,10 +100,6 @@ const MessagePanel = () => {
 				setAlreadyFetched(true);
 				setMessages(messagesResponse.data);
 				setConversations(conversationsResponse.data);
-				console.log("from db: ", conversationsResponse.data);
-				// let conversationsToAdd = conversationsResponse.data.filter(
-				// 	(newConvo) => !conversations.some((existingConvo) => existingConvo.product_id === newConvo.product_id)
-				// );
 
 				if (id) {
 					const foundConvo = conversationsResponse.data.find((convo) => convo.product_id === id);
@@ -141,24 +126,6 @@ const MessagePanel = () => {
 						setSelectedConversation(foundConvo);
 					}
 				} else {
-					// setSelectedConversation(
-					// 	window.innerWidth >= 764
-					// 		? [...conversations, ...conversationsToAdd].sort(
-					// 				(b, a) =>
-					// 					new Date(
-					// 						messagesResponse.data
-					// 							.filter((message) => message.conversation_id === a.conversation_id)
-					// 							.sort((b, a) => compareAsc(parseISO(a.time_stamp), parseISO(b.time_stamp)))[0].time_stamp
-					// 					) -
-					// 					new Date(
-					// 						messagesResponse.data
-					// 							.filter((message) => message.conversation_id === b.conversation_id)
-					// 							.sort((b, a) => compareAsc(parseISO(a.time_stamp), parseISO(b.time_stamp)))[0].time_stamp
-					// 					)
-					// 		  )[0]
-					// 		: null
-					// );
-
 					setSelectedConversation(window.innerWidth >= 764 ? conversationsResponse.data[0] : null);
 				}
 
@@ -215,6 +182,7 @@ const MessagePanel = () => {
 			console.error("Error uploading message:", error);
 		}
 
+		//creating mock message to display on the frontend and send to the other users socket
 		const message = {
 			conversation_id: selectedConversation.conversation_id,
 			message: newMessage,
@@ -264,7 +232,6 @@ const MessagePanel = () => {
 
 		window.addEventListener("resize", handleResize);
 
-		// Clean up the event listener when the component unmounts
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};

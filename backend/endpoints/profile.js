@@ -11,6 +11,7 @@ var cloudinary = require("cloudinary").v2;
 
 const jwt = require("jsonwebtoken");
 
+//getting user details to display on myaccount
 router.get("/details", jwtMiddleware, async (req, res) => {
 	try {
 		const signedInUserID = req.query.signedInUserID;
@@ -24,7 +25,6 @@ router.get("/details", jwtMiddleware, async (req, res) => {
     `,
 			[signedInUserID]
 		);
-		console.log(signedInUserID);
 		res.json(result.rows);
 	} catch (error) {
 		console.error(error);
@@ -32,6 +32,7 @@ router.get("/details", jwtMiddleware, async (req, res) => {
 	}
 });
 
+//to updte user details on account settings
 router.put("/update", async (req, res) => {
 	const { id, first_name, last_name, email, phone_number, is_admin } = req.body;
 	try {
@@ -50,13 +51,14 @@ router.put("/update", async (req, res) => {
 	}
 });
 
+//setting new password (if current password is correct and new password matches confirm new password)
 router.put("/newPassword", async (req, res) => {
 	const { id, currentPassword, newPassword } = req.body;
 	try {
 		const currentHashResult = await pool.query("SELECT * FROM passwords WHERE user_id = $1", [id]);
 		const currentHash = currentHashResult.rows[0];
 
-		//compare provided password with hashed password in database
+		//compare new password with hashed password in database
 		const match = await bcrypt.compare(currentPassword, currentHash.hashed_password);
 
 		if (!match) {
@@ -76,7 +78,7 @@ router.put("/newPassword", async (req, res) => {
 router.post("/", async (req, res) => {
 	let { firstName, lastName, email, phoneNumber, password } = req.body;
 	email = email.toLowerCase();
-	//checking if user already exists
+	//making sure email and phone number aren't already associated with another account
 	try {
 		const checkUserResult = await pool.query("SELECT 1 FROM users WHERE email = $1 or phone_number=$2", [email, phoneNumber]);
 		if (checkUserResult.rows.length > 0) {
@@ -90,7 +92,7 @@ router.post("/", async (req, res) => {
 	try {
 		const hashedPassword = await bcrypt.hash(password, 10);
 
-		//egin a transaction to ensure both inserts are executed or none at all
+		//egin a transaction to ensure both inserts are executed or neither are
 		const client = await pool.connect();
 
 		try {
@@ -99,7 +101,6 @@ router.post("/", async (req, res) => {
 				"INSERT INTO users (is_admin, first_name, last_name, email, phone_number) VALUES ($1, $2, $3, $4, $5) RETURNING id";
 			const insertUserValues = [0, firstName, lastName, email, phoneNumber];
 
-			//insert the user and get the user id
 			const userResult = await client.query(insertUserText, insertUserValues);
 			const userId = userResult.rows[0].id;
 

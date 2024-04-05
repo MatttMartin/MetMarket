@@ -6,8 +6,8 @@ const jwtMiddleware = require('../jwtMiddleware')
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
+//getting all messages for a conversation
 router.get("/messages", jwtMiddleware, async (req, res) => {
-	console.log("in messages")
 	try {
 		const signedInUserID = req.query.signedInUserID;
 
@@ -35,6 +35,7 @@ router.get("/messages", jwtMiddleware, async (req, res) => {
 	}
 });
 
+//getting list of conversations for a user
 router.get("/conversations", jwtMiddleware, async (req, res) => {
 	try {
 		const signedInUserID = req.query.signedInUserID;
@@ -66,11 +67,12 @@ router.get("/conversations", jwtMiddleware, async (req, res) => {
 	}
 });
 
+//create a new conversation
 router.post("/conversations", jwtMiddleware, async (req, res) => {
 	try {
 		const { product_id, userid } = req.body;
 
-		// Fetch product information to ensure it exists
+		//making sure product exists
 		const productQuery = await pool.query(
 			"SELECT user_id FROM Products WHERE product_id = $1",
 			[product_id]
@@ -82,7 +84,6 @@ router.post("/conversations", jwtMiddleware, async (req, res) => {
 
 		const { user_id } = productQuery.rows[0];
 
-		// Create a new conversation entry
 		const insertQuery = await pool.query(
 			"INSERT INTO Conversations (userid1, userid2, product_id) VALUES ($1, $2, $3) RETURNING conversation_id", // Just return the ID
 			[user_id, userid, product_id]
@@ -90,7 +91,7 @@ router.post("/conversations", jwtMiddleware, async (req, res) => {
 
 		const conversationId = insertQuery.rows[0].conversation_id;
 
-		// Fetch the newly created conversation with additional details
+		//selecting user info for convo to return
 		const result = await pool.query(
 			`SELECT
 			  c.*,
@@ -119,7 +120,7 @@ router.post("/conversations", jwtMiddleware, async (req, res) => {
 	}
 });
 
-
+//to send a new message
 router.post("/messages", jwtMiddleware, async (req, res) => {
 	try {
 		const result = await pool.query(
