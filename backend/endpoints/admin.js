@@ -2,10 +2,14 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db");
 const bodyParser = require("body-parser");
+const isAdmin = await pool.query("SELECT * from users where is_admin=1 and user_id=$1", [id]);
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/reported-ads", async (req, res) => {
+  if (isAdmin.rows.length === 0) {
+    return res.status(403).json({error: "User is not admin"})
+  }
   try {
     const result = await pool.query("SELECT * from reported_ads");
     res.json(result);
@@ -17,6 +21,9 @@ router.get("/reported-ads", async (req, res) => {
 });
 
 router.get("/reported-users", async (req, res) => {
+  if (isAdmin.rows.length === 0) {
+    return res.status(403).json({error: "User is not admin"})
+  }
   try {
     const result = await pool.query("SELECT * from reported_users");
     res.json(result);
@@ -41,7 +48,6 @@ router.post("/reported-ads", async (req, res) => {
   }
 });
 
-// Create reported user
 router.post("/reported-users", async (req, res) => {
   try {
     const { reported_user_id, reported_by_user_id, reason } = req.body;
@@ -57,6 +63,9 @@ router.post("/reported-users", async (req, res) => {
 });
 
 router.get("/users", async (req, res) => {
+  if (isAdmin.rows.length === 0) {
+    return res.status(403).json({error: "User is not admin"})
+  }
   try {
     const result = await pool.query("SELECT * FROM users");
     res.json(result.rows);
