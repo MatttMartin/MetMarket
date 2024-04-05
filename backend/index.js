@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.static('public'));
 
-// Increasing the limit for image upload
+//increasing the limit for image upload
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
@@ -20,7 +20,6 @@ dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 
-// Create an express applicaiton
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -43,7 +42,6 @@ app.use('/api/cloudinary', cloudinaryRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/report', reportRoutes);
 
-// Create a Socket.io server with the express application
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -52,15 +50,16 @@ const io = new Server(server, {
 });
 
 
-// wait for new connection
 io.on("connection", (socket) => {
   console.log("New client is connected"); 
 
   const userId = socket.handshake.query.userId;
+  //join a group based on the userid
   socket.join(userId)
 
   console.log(userId)
 
+  //when a user sends a message, emit it to the other user in the conversation
   socket.on("message", (msg) => {
     console.log(msg)
     io.to(msg.receiver_id).emit("newMessage", msg)
@@ -72,11 +71,6 @@ io.on("connection", (socket) => {
 });
 
 
-
-
-
-
-// Run the server
 try {
   server.listen(PORT, () => {
     console.log(`Connected successfully on port ${PORT}`);
